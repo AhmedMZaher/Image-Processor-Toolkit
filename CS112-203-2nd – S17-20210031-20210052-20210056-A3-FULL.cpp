@@ -76,3 +76,41 @@ void rotateImage() {
         }
     }
 }
+
+
+
+
+
+void Merge_Filter()
+{
+    LoadImage();
+    char imageFileName2[100];
+    cout << "Please enter name of image file to merge with:" << endl;
+    cin>>imageFileName2;
+    strcat(imageFileName2, ".bmp");
+    readGSBMP(imageFileName2, image2);
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            res[i][j] = (image[i][j] + image2[i][j]) / 2;
+        }
+    }
+}
+void Darken() {
+    LoadImage();
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            res[i][j] = image[i][j] / 2;
+        }
+
+    }
+}
+void Lighten() {
+    LoadImage();
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            res[i][j]=min(image[i][j]+50,255);
+        }
+
+    }
+}
+
