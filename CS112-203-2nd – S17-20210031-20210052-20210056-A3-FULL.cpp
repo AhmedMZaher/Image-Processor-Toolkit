@@ -96,7 +96,6 @@ void Merge_Filter()
     }
 }
 void Darken() {
-    LoadImage();
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             res[i][j] = image[i][j] / 2;
@@ -105,7 +104,6 @@ void Darken() {
     }
 }
 void Lighten() {
-    LoadImage();
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             res[i][j]=min(image[i][j]+50,255);
@@ -128,6 +126,21 @@ void BlackWhiteImage(){
                 image[i][j] = 255;
             else
                 image[i][j] = 0;
+        }
+    }
+}
+
+void flipImageHorizontally(){
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            outputImage[i][SIZE - j - 1] = image[i][j];
+        }
+    }
+}
+void flipImageVertically(){
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            outputImage[SIZE - i - 1][j] = image[i][j];
         }
     }
 }
