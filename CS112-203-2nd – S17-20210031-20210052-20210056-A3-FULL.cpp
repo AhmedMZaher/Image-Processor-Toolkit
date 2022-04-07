@@ -6,3 +6,73 @@
 // Author3 and ID and Group: 20210056
 // Teaching Assistant: Eng/ Hagar
 // Purpose: For 6 filters in photoshop project
+
+
+
+void invertImage(){
+    for(int i=0; i<SIZE; i++){
+        for (int j = 0; j <SIZE ; j++) {
+            image[i][j]= 255-image[i][j];
+        }
+    }
+}
+//---------------------------------
+void rotateImage() {
+
+    int choice;
+    cout << "Enter rotate value 90, 180 or 270: ";
+    cin >> choice;
+    if (choice == 270) {
+        for (int x = 1; x <= 3; x++) {
+            for (int i = 0; i < SIZE; i++) {        //Transpose the image(rows to columns)
+                for (int j = i; j < SIZE; j++) {
+                    int ele = image[i][j];
+                    image[i][j] = image[j][i];
+                    image[j][i] = ele;
+                }
+            }
+            for (int i = 0; i < SIZE; i++) {      // Flip transpose  horizonatally
+                for (int j = 0; j < SIZE / 2; j++) {
+                    int ele = image[i][j];
+                    image[i][j] = image[i][SIZE - 1 - j];
+                    image[i][SIZE - 1 - j] = ele;
+                }
+            }
+        }
+    }
+     else if (choice == 90) {   //rotate image by 90 deg
+        for(int i=0 ; i<SIZE;i++){        //Transpose the image(rows to columns)
+            for(int j=i ;j < SIZE; j++){
+                int ele=image[i][j];
+                image[i][j]=image[j][i];
+                image[j][i]=ele;
+            }
+        }
+        for(int i=0; i<SIZE; i++){      // Flip transpose  horizonatally
+            for(int j=0; j<SIZE/2; j++){
+                int ele = image[i][j];
+                image[i][j]=image[i][SIZE-1-j];
+                image[i][SIZE-1-j]=ele;
+            }
+        }
+            }
+
+    else if (choice == 180) {
+        for (int x = 1; x <=2; x++) {
+            for(int i=0 ; i<SIZE;i++){        //Transpose the image(rows to columns)
+                for(int j=i ;j < SIZE; j++){
+                    int ele=image[i][j];
+                    image[i][j]=image[j][i];
+                    image[j][i]=ele;
+                }
+            }
+            for(int i=0; i<SIZE; i++){      // Flip transpose  horizonatally
+                for(int j=0; j<SIZE/2; j++){
+                    int ele = image[i][j];
+                    image[i][j]=image[i][SIZE-1-j];
+                    image[i][SIZE-1-j]=ele;
+                }
+            }
+        }
+    }
+}
