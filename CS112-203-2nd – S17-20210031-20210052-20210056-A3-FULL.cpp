@@ -114,3 +114,20 @@ void Lighten() {
     }
 }
 
+void BlackWhiteImage(){
+    long long avg = 0;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            avg += image[i][j];
+        }
+    }
+    avg /= (256 * 256);
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            if (image[i][j] > avg)
+                image[i][j] = 255;
+            else
+                image[i][j] = 0;
+        }
+    }
+}
