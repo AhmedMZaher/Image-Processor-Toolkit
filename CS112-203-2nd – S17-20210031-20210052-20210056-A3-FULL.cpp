@@ -232,7 +232,7 @@ void shrink() {
     if (choose1 == "1/2") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                res[i / 2][j / 2] = (image[i][j] + image[i + 1][j] + image[i][j + 1] + image[i + 1][j + 1]) / 4;
+                res[i / 2][j / 2] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
             }
         }
     }
@@ -246,7 +246,7 @@ void shrink() {
     else if (choose1 == "1/4") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                res[i / 4][j / 4] = (image[i][j] + image[i + 1][j] + image[i][j + 1] + image[i + 1][j + 1]) / 4;
+                res[i / 4][j / 4] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
             }
         }
     }
@@ -255,7 +255,7 @@ void blur(){
     LoadImage();
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            res[i][j]=(image[i][j]+image[i][j+1]+image[i][j+2]+image[i][j+3]+image[i][j+4]+image[i+1][j]+image[i+1][j+1]+image[i+1][j+2]+image[i+1][j+3]+image[i+1][j+4]+image[i+2][j]+image[i+2][j+1]+image[i+2][j+2]+image[i+2][j+3]+image[i+2][j+4]+image[i+3][j]+image[i+3][j+1]+image[i+3][j+2]+image[i+3][j+3]+image[i+4][j]+image[i+4][j+1]+image[i+4][j+2]+image[i+4][j+3]+image[i+4][j+4])/25;
+            res[i][j]=(image1[i][j]+image1[i][j+1]+image1[i][j+2]+image1[i][j+3]+image1[i][j+4]+image1[i+1][j]+image1[i+1][j+1]+image1[i+1][j+2]+image1[i+1][j+3]+image1[i+1][j+4]+image1[i+2][j]+image1[i+2][j+1]+image1[i+2][j+2]+image1[i+2][j+3]+image1[i+2][j+4]+image1[i+3][j]+image1[i+3][j+1]+image1[i+3][j+2]+image1[i+3][j+3]+image1[i+4][j]+image1[i+4][j+1]+image1[i+4][j+2]+image1[i+4][j+3]+image1[i+4][j+4])/25;
         }
 
     }
