@@ -172,6 +172,58 @@ void flipImageVertically() {
     }
 }
 
+void enlargeImage(){
+    int choice;
+    cout<<"Enter which q that you want to enlarge:";
+    cin>>choice;
+    if(choice==1) {
+
+        for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {
+            for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) {
+                result[x][y] = image1[i][j];
+                result[x + 1][y] = image1[i][j];
+                result[x][y + 1] = image1[i][j];
+                result[x + 1][y + 1] = image1[i][j];
+            }
+
+        }
+    } else if(choice==2){
+        for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {
+            for (int j = SIZE/2, y = 0; j < SIZE; j++, y += 2) {
+                result[x][y] = image1[i][j];
+                result[x + 1][y] = image1[i][j];
+                result[x][y + 1] = image1[i][j];
+                result[x + 1][y + 1] = image1[i][j];
+            }
+
+        }
+    }
+
+
+    else if(choice==3){
+        for (int i = SIZE/2, x = 0; i < SIZE; i++, x += 2) {
+            for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) {
+                result[x][y] = image1[i][j];
+                result[x + 1][y] = image1[i][j];
+                result[x][y + 1] = image1[i][j];
+                result[x + 1][y + 1] = image1[i][j];
+            }
+
+        }
+
+    }
+    else if(choice==4){
+        for (int i = SIZE/2, x = 0; i < SIZE ; i++, x += 2) {
+            for (int j = SIZE/2, y = 0; j < SIZE; j++, y += 2) {
+               result[x][y] = image1[i][j];
+                result[x + 1][y] = image1[i][j];
+                result[x][y + 1] = image1[i][j];
+                result[x + 1][y + 1] = image1[i][j];
+            }
+
+        }
+    }
+}
 
 int main() {
     int choice = 0;
