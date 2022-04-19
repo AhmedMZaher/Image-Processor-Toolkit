@@ -331,6 +331,92 @@ void shuffleImageRGB() {
         }
     }
 }
+void Merge_Filter_RGB()
+{
+    LoadImage_RGB();
+    char imageFileName2[100];
+    cout << "Please enter name of image file to merge with:" << endl;
+    cin>>imageFileName2;
+    strcat(imageFileName2, ".bmp");
+    readRGBBMP(imageFileName2, image2_RGB);
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++)
+            for (int m = 0; m < RGB; m++) {
+            res_RGB[i][j][m] = (image_RGB[i][j][m] + image2_RGB[i][j][m]) / 2;
+        }
+    }
+}
+void Darken_RGB() {
+    LoadImage_RGB();
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++)
+            for (int m = 0; m < RGB; m++) {
+            res_RGB[i][j][m] = image_RGB[i][j][m] / 2;
+        }
+
+    }
+}
+void Lighten_RGB() {
+    LoadImage_RGB();
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++)
+            for (int m = 0; m < RGB; m++) {
+            res_RGB[i][j][m]=min(image_RGB[i][j][m]+50,255);
+        }
+
+    }
+}
+void shrink_RGB() {
+    string choose1;
+    LoadImage_RGB();
+    cout << "Shrink to (1/2), (1/3) or (1/4)?" << endl;
+    cin >> choose1;
+    if (choose1 == "1/2") {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++)
+                for (int m = 0; m < RGB; m++) {
+                res_RGB[i / 2][j / 2][m] = (image_RGB[i][j][m] + image_RGB[i + 1][j][m] + image_RGB[i][j + 1][m] + image_RGB[i + 1][j + 1][m]) / 4;
+            }
+        }
+    }
+    else if (choose1 == "1/3") {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++)
+                for (int m = 0; m < RGB; m++){
+                res_RGB[i / 3][j / 3][m] = (image_RGB[i][j][m] + image_RGB[i + 1][j][m] + image_RGB[i][j + 1][m] + image_RGB[i + 1][j + 1][m]) / 4;
+            }
+        }
+    }
+    else if (choose1 == "1/4") {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++)
+                for (int m = 0; m < RGB; m++){
+                res_RGB[i / 4][j / 4][m] = (image_RGB[i][j][m] + image_RGB[i + 1][j][m] + image_RGB[i][j + 1][m] + image_RGB[i + 1][j + 1][m]) / 4;
+            }
+        }
+    }
+}
+void blur_RGB(){
+    LoadImage_RGB();
+    for (int i = 0; i <SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            for (int k = 0; k < RGB; k++) {
+                res_RGB[i][j][k] =
+                        (image_RGB[i][j][k] + image_RGB[i][j + 1][k] + image_RGB[i][j + 2][k] + image_RGB[i][j + 3][k] +
+                         image_RGB[i][j + 4][k] + image_RGB[i + 1][j][k] + image_RGB[i + 1][j + 1][k] +
+                         image_RGB[i + 1][j + 2][k] + image_RGB[i + 1][j + 3][k] + image_RGB[i + 1][j + 4][k] +
+                         image_RGB[i + 2][j][k] + image_RGB[i + 2][j + 1][k] + image_RGB[i + 2][j + 2][k] +
+                         image_RGB[i + 2][j + 3][k] + image_RGB[i + 2][j + 4][k] + image_RGB[i + 3][j][k] +
+                         image_RGB[i + 3][j + 1][k] + image_RGB[i + 3][j + 2][k] + image_RGB[i + 3][j + 3][k] +
+                         image_RGB[i + 4][j][k] + image_RGB[i + 4][j + 1][k] + image_RGB[i + 4][j + 2][k] +
+                         image_RGB[i + 4][j + 3][k] + image_RGB[i + 4][j + 4][k]) / 25;
+            }
+        }
+    }
+
+}
+
+
 
 int main() {
     char choice = '0';
