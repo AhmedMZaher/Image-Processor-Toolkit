@@ -260,7 +260,45 @@ void blur(){
 
     }
 }
-
+void shuffleImage() {
+string shuffle;
+cout<<"Enter the new order:";
+    getline(cin>> ws,shuffle);
+    shuffle.erase(remove(shuffle.begin(),shuffle.end(),' '), shuffle.end());
+    int i_start, i_end, j_start, j_end, new_i_start, new_i_end, new_j_start, new_j_end;
+    for(int a=0;a<4;a++){
+        if(shuffle[a]=='1'){
+            i_start= j_start= 0;
+            j_end= i_end= SIZE/2;
+        }
+    else if(shuffle[a]=='2'){
+        i_start=0; i_end=SIZE/2; j_start=SIZE/2; j_end=SIZE;
+    } else if(shuffle[a]=='3'){
+        i_start=SIZE/2; i_end=SIZE;
+        j_start=0; j_end=SIZE/2;
+    }
+    else{
+        i_start=j_start=SIZE/2; i_end=j_end=SIZE;
+    }
+    if(a==0){
+        new_i_start=new_j_start=0; new_i_end=new_j_end=SIZE/2;
+    }
+    else if(a==1){
+        new_i_start=0;new_j_start=SIZE/2;
+    }
+    else if(a==2){
+        new_i_start=SIZE/2; new_j_start=0;
+    }
+    else{
+        new_i_start=new_j_start=SIZE/2;
+    }
+    for(int i=i_start, new_i=new_i_start; i<i_end; i++,new_i++){
+        for(int j=j_start,new_j=new_j_start; j<j_end;j++,new_j++){
+            result[new_i][new_j]=image1[i][j];
+        }
+    }
+    }
+}
 
 int main() {
     int choice = 0;
