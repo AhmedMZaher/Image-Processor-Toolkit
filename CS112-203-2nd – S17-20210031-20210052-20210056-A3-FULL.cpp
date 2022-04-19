@@ -1,14 +1,12 @@
 // FCI – Programming 1 – 2022 - Assignment 3
-// Program Name: CS112-203-2nd – S17-20210031-20210052-20210056-A3-FULL.cpp
+// Program Name: xxxxxx.cpp
 // Last Modification Date: 07/04/2022
 // Author1 and ID and Group: 20210031
 // Author2 and ID and Group: 20210052
 // Author3 and ID and Group: 20210056
 // Teaching Assistant: Eng/ Hagar
 // Purpose: For 6 filters in photoshop project
-
 #include <iostream>
-#include <fstream>
 #include <cstring>
 #include <cmath>
 #include "bmplib.cpp"
@@ -17,7 +15,12 @@ using namespace std;
 unsigned char image1[SIZE][SIZE];
 unsigned char image2[SIZE][SIZE];
 unsigned char result[SIZE][SIZE];
-
+int Gx[3][3] = {{-1, 0, 1},
+                {-2, 0, 2},
+                {-1, 0, 1}};
+int Gy[3][3] = {{-1, -2, -1},
+                {0,  0,  0},
+                {1,  2,  1}};
 
 void loadImage(unsigned char arr[SIZE][SIZE]) {
     char imageFileName[100];
@@ -29,20 +32,22 @@ void loadImage(unsigned char arr[SIZE][SIZE]) {
     readGSBMP(imageFileName, arr);
 }
 
+//---------------------------------
 void saveImage(unsigned char res_arr[SIZE][SIZE]) {
     char imageFileName[100];
 
-    cout << "Please Enter name of output image: " << endl;
+    cout << "Please enter target file name: " << endl;
     cin >> imageFileName;
 
     strcat(imageFileName, ".bmp");
     writeGSBMP(imageFileName, res_arr);
 }
 
-void invertImage() {
+//---------------------------------
+void invertImage(unsigned char in[SIZE][SIZE]) {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            result[i][j] = 255 - image1[i][j];
+            result[i][j] = 255 - in[i][j];
         }
     }
 }
@@ -67,6 +72,38 @@ void rotateImage() {
                     result[j][i] = ele;
                 }
             }
+            for (int i = 0; i < SIZE; i++) {      //Flip transpose  horizontally
+                for (int j = 0; j < SIZE / 2; j++) {
+                    int ele = result[i][j];
+                    result[i][j] = result[i][SIZE - 1 - j];
+                    result[i][SIZE - 1 - j] = ele;
+                }
+            }
+        }
+    } else if (choice == 90) {   //rotate image by 90 deg
+        for (int i = 0; i < SIZE; i++) {        //Transpose the image(rows to columns)
+            for (int j = i; j < SIZE; j++) {
+                int ele = result[i][j];
+                result[i][j] = result[j][i];
+                result[j][i] = ele;
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {      // Flip transpose  horizonatally
+            for (int j = 0; j < SIZE / 2; j++) {
+                int ele = result[i][j];
+                result[i][j] = result[i][SIZE - 1 - j];
+                result[i][SIZE - 1 - j] = ele;
+            }
+        }
+    } else if (choice == 180) {
+        for (int x = 1; x <= 2; x++) {
+            for (int i = 0; i < SIZE; i++) {        //Transpose the image(rows to columns)
+                for (int j = i; j < SIZE; j++) {
+                    int ele = result[i][j];
+                    result[i][j] = result[j][i];
+                    result[j][i] = ele;
+                }
+            }
             for (int i = 0; i < SIZE; i++) {      // Flip transpose  horizonatally
                 for (int j = 0; j < SIZE / 2; j++) {
                     int ele = result[i][j];
@@ -76,45 +113,17 @@ void rotateImage() {
             }
         }
     }
-    else if (choice == 90) {   //rotate image by 90 deg
-        for(int i=0 ; i<SIZE;i++){        //Transpose the image(rows to columns)
-            for(int j=i ;j < SIZE; j++){
-                int ele=result[i][j];
-                result[i][j]=result[j][i];
-                result[j][i]=ele;
-            }
-        }
-        for(int i=0; i<SIZE; i++){      // Flip transpose  horizonatally
-            for(int j=0; j<SIZE/2; j++){
-                int ele = result[i][j];
-                result[i][j]=result[i][SIZE-1-j];
-                result[i][SIZE-1-j]=ele;
-            }
-        }
-    }
-
-    else if (choice == 180) {
-        for (int x = 1; x <=2; x++) {
-            for(int i=0 ; i<SIZE;i++){        //Transpose the image(rows to columns)
-                for(int j=i ;j < SIZE; j++){
-                    int ele=result[i][j];
-                    result[i][j]=result[j][i];
-                    result[j][i]=ele;
-                }
-            }
-            for(int i=0; i<SIZE; i++){      // Flip transpose  horizonatally
-                for(int j=0; j<SIZE/2; j++){
-                    int ele = result[i][j];
-                    result[i][j]=result[i][SIZE-1-j];
-                    result[i][SIZE-1-j]=ele;
-                }
-            }
-        }
-    }
 }
 
-
+//---------------------------------
 void Merge_Filter() {
+    char imageFileNameToMerge[100];
+
+    cout << "Please enter name of image file to merge with: " << endl;
+    cin >> imageFileNameToMerge;
+    strcat(imageFileNameToMerge, ".bmp");
+    readGSBMP(imageFileNameToMerge, image2);
+
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             result[i][j] = (image1[i][j] + image2[i][j]) / 2;
@@ -122,6 +131,7 @@ void Merge_Filter() {
     }
 }
 
+//---------------------------------
 void darkenImage() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -130,6 +140,7 @@ void darkenImage() {
     }
 }
 
+//---------------------------------
 void lightenImage() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -138,6 +149,7 @@ void lightenImage() {
     }
 }
 
+//---------------------------------
 void BlackWhiteImage() {
     long long avg = 0;
     for (int i = 0; i < SIZE; i++) {
@@ -156,6 +168,7 @@ void BlackWhiteImage() {
     }
 }
 
+//---------------------------------
 void flipImageHorizontally() {
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
@@ -164,6 +177,7 @@ void flipImageHorizontally() {
     }
 }
 
+//---------------------------------
 void flipImageVertically() {
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
@@ -172,11 +186,72 @@ void flipImageVertically() {
     }
 }
 
-void enlargeImage(){
+//---------------------------------
+void edgeDetection() {
+    int Gx_sum = 0;
+    int Gy_sum = 0;
+    for (int i = 1; i < SIZE - 1; i++) {
+        for (int j = 1; j < SIZE - 1; j++) {
+            for (int k = 0; k < 3; k++) {
+                for (int l = 0; l < 3; l++) {
+                    Gx_sum += Gx[k][l] * image1[i + k - 1][j + l - 1];
+                    Gy_sum += Gy[k][l] * image1[i + k - 1][j + l - 1];
+                }
+            }
+            int pixel = abs(Gx_sum) + abs(Gy_sum);
+            pixel = pixel > 255 ? 255 : pixel;
+            pixel = pixel < 0 ? 0 : pixel;
+            result[i][j] = pixel;
+            Gx_sum = 0;
+            Gy_sum = 0;
+        }
+    }
+    invertImage(result);
+}
+
+//---------------------------------
+void mirrorImage(char c) {
+    if (c == 'l') {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE / 2; ++j) {
+                result[i][j] = image1[i][j];
+                result[i][SIZE / 2 + j] = image1[i][SIZE / 2 - j];
+            }
+        }
+    } else if (c == 'r') {
+        for (int i = 0; i < SIZE; ++i) {
+            int curr = SIZE;
+            for (int j = SIZE / 2; j < SIZE; ++j) {
+                result[i][j] = image1[i][j];
+                result[i][j - SIZE / 2] = image1[i][curr];
+                curr--;
+            }
+        }
+    } else if (c == 'u') {
+        for (int i = 0; i < SIZE / 2; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                result[i][j] = image1[i][j];
+                result[SIZE / 2 + i][j] = image1[SIZE / 2 - i][j];
+            }
+        }
+    } else if (c == 'd') {
+        int curr = SIZE;
+        for (int i = SIZE / 2; i < SIZE; ++i) {
+            curr--;
+            for (int j = 0; j < SIZE; ++j) {
+                result[i][j] = image1[i][j];
+                result[i - SIZE / 2][j] = image1[curr][j];
+            }
+        }
+    }
+}
+
+//---------------------------------
+void enlargeImage() {
     int choice;
-    cout<<"Enter which q that you want to enlarge:";
-    cin>>choice;
-    if(choice==1) {
+    cout << "Enter which q that you want to enlarge:";
+    cin >> choice;
+    if (choice == 1) {
 
         for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {
             for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) {
@@ -187,9 +262,9 @@ void enlargeImage(){
             }
 
         }
-    } else if(choice==2){
+    } else if (choice == 2) {
         for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {
-            for (int j = SIZE/2, y = 0; j < SIZE; j++, y += 2) {
+            for (int j = SIZE / 2, y = 0; j < SIZE; j++, y += 2) {
                 result[x][y] = image1[i][j];
                 result[x + 1][y] = image1[i][j];
                 result[x][y + 1] = image1[i][j];
@@ -197,11 +272,8 @@ void enlargeImage(){
             }
 
         }
-    }
-
-
-    else if(choice==3){
-        for (int i = SIZE/2, x = 0; i < SIZE; i++, x += 2) {
+    } else if (choice == 3) {
+        for (int i = SIZE / 2, x = 0; i < SIZE; i++, x += 2) {
             for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) {
                 result[x][y] = image1[i][j];
                 result[x + 1][y] = image1[i][j];
@@ -211,11 +283,10 @@ void enlargeImage(){
 
         }
 
-    }
-    else if(choice==4){
-        for (int i = SIZE/2, x = 0; i < SIZE ; i++, x += 2) {
-            for (int j = SIZE/2, y = 0; j < SIZE; j++, y += 2) {
-               result[x][y] = image1[i][j];
+    } else if (choice == 4) {
+        for (int i = SIZE / 2, x = 0; i < SIZE; i++, x += 2) {
+            for (int j = SIZE / 2, y = 0; j < SIZE; j++, y += 2) {
+                result[x][y] = image1[i][j];
                 result[x + 1][y] = image1[i][j];
                 result[x][y + 1] = image1[i][j];
                 result[x + 1][y + 1] = image1[i][j];
@@ -224,84 +295,95 @@ void enlargeImage(){
         }
     }
 }
-void shrink() {
+
+//---------------------------------
+void shrinkImage() {
     string choose1;
-    LoadImage();
     cout << "Shrink to (1/2), (1/3) or (1/4)?" << endl;
     cin >> choose1;
     if (choose1 == "1/2") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                res[i / 2][j / 2] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
+                result[i / 2][j / 2] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
             }
         }
-    }
-    else if (choose1 == "1/3") {
+    } else if (choose1 == "1/3") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                res[i / 3][j / 3] = (image[i][j] + image[i + 1][j] + image[i][j + 1] + image[i + 1][j + 1]) / 4;
+                result[i / 3][j / 3] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
             }
         }
-    }
-    else if (choose1 == "1/4") {
+    } else if (choose1 == "1/4") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                res[i / 4][j / 4] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
+                result[i / 4][j / 4] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
             }
         }
     }
 }
-void blur(){
-    LoadImage();
+
+//---------------------------------
+void shuffleImage() {
+    string shuffle;
+    cout << "Enter the new order:";
+    getline(cin >> ws, shuffle);
+    shuffle.erase(remove(shuffle.begin(), shuffle.end(), ' '), shuffle.end());
+    int i_start, i_end, j_start, j_end, new_i_start, new_i_end, new_j_start, new_j_end;
+    for (int a = 0; a < 4; a++) {
+        if (shuffle[a] == '1') {
+            i_start = j_start = 0;
+            j_end = i_end = SIZE / 2;
+        } else if (shuffle[a] == '2') {
+            i_start = 0;
+            i_end = SIZE / 2;
+            j_start = SIZE / 2;
+            j_end = SIZE;
+        } else if (shuffle[a] == '3') {
+            i_start = SIZE / 2;
+            i_end = SIZE;
+            j_start = 0;
+            j_end = SIZE / 2;
+        } else {
+            i_start = j_start = SIZE / 2;
+            i_end = j_end = SIZE;
+        }
+        if (a == 0) {
+            new_i_start = new_j_start = 0;
+            new_i_end = new_j_end = SIZE / 2;
+        } else if (a == 1) {
+            new_i_start = 0;
+            new_j_start = SIZE / 2;
+        } else if (a == 2) {
+            new_i_start = SIZE / 2;
+            new_j_start = 0;
+        } else {
+            new_i_start = new_j_start = SIZE / 2;
+        }
+        for (int i = i_start, new_i = new_i_start; i < i_end; i++, new_i++) {
+            for (int j = j_start, new_j = new_j_start; j < j_end; j++, new_j++) {
+                result[new_i][new_j] = image1[i][j];
+            }
+        }
+    }
+}
+
+//---------------------------------
+void blurImage() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            res[i][j]=(image1[i][j]+image1[i][j+1]+image1[i][j+2]+image1[i][j+3]+image1[i][j+4]+image1[i+1][j]+image1[i+1][j+1]+image1[i+1][j+2]+image1[i+1][j+3]+image1[i+1][j+4]+image1[i+2][j]+image1[i+2][j+1]+image1[i+2][j+2]+image1[i+2][j+3]+image1[i+2][j+4]+image1[i+3][j]+image1[i+3][j+1]+image1[i+3][j+2]+image1[i+3][j+3]+image1[i+4][j]+image1[i+4][j+1]+image1[i+4][j+2]+image1[i+4][j+3]+image1[i+4][j+4])/25;
+            result[i][j] = (image1[i][j] + image1[i][j + 1] + image1[i][j + 2] + image1[i][j + 3] + image1[i][j + 4] +
+                            image1[i + 1][j] + image1[i + 1][j + 1] + image1[i + 1][j + 2] + image1[i + 1][j + 3] +
+                            image1[i + 1][j + 4] + image1[i + 2][j] + image1[i + 2][j + 1] + image1[i + 2][j + 2] +
+                            image1[i + 2][j + 3] + image1[i + 2][j + 4] + image1[i + 3][j] + image1[i + 3][j + 1] +
+                            image1[i + 3][j + 2] + image1[i + 3][j + 3] + image1[i + 4][j] + image1[i + 4][j + 1] +
+                            image1[i + 4][j + 2] + image1[i + 4][j + 3] + image1[i + 4][j + 4]) / 25;
         }
 
-    }
-}
-void shuffleImage() {
-string shuffle;
-cout<<"Enter the new order:";
-    getline(cin>> ws,shuffle);
-    shuffle.erase(remove(shuffle.begin(),shuffle.end(),' '), shuffle.end());
-    int i_start, i_end, j_start, j_end, new_i_start, new_i_end, new_j_start, new_j_end;
-    for(int a=0;a<4;a++){
-        if(shuffle[a]=='1'){
-            i_start= j_start= 0;
-            j_end= i_end= SIZE/2;
-        }
-    else if(shuffle[a]=='2'){
-        i_start=0; i_end=SIZE/2; j_start=SIZE/2; j_end=SIZE;
-    } else if(shuffle[a]=='3'){
-        i_start=SIZE/2; i_end=SIZE;
-        j_start=0; j_end=SIZE/2;
-    }
-    else{
-        i_start=j_start=SIZE/2; i_end=j_end=SIZE;
-    }
-    if(a==0){
-        new_i_start=new_j_start=0; new_i_end=new_j_end=SIZE/2;
-    }
-    else if(a==1){
-        new_i_start=0;new_j_start=SIZE/2;
-    }
-    else if(a==2){
-        new_i_start=SIZE/2; new_j_start=0;
-    }
-    else{
-        new_i_start=new_j_start=SIZE/2;
-    }
-    for(int i=i_start, new_i=new_i_start; i<i_end; i++,new_i++){
-        for(int j=j_start,new_j=new_j_start; j<j_end;j++,new_j++){
-            result[new_i][new_j]=image1[i][j];
-        }
-    }
     }
 }
 
 int main() {
-    int choice = 0;
+    char choice = '0';
     while (choice != -1) {
         cout << "Ahlan ya user ya habibi\n";
         cout << "1- Black & White Filter\n";
@@ -310,31 +392,39 @@ int main() {
         cout << "4- Flip Image\n";
         cout << "5- Darken and Lighten Image\n";
         cout << "6- Rotate Image\n";
+        cout << "7- Detect Image Edges\n";
+        cout << "8- Enlarge Image\n";
+        cout << "9- Shrink Image\n";
+        cout << "a- Mirror 1/2 Image\n";
+        cout << "b- Shuffle Image\n";
+        cout << "c- Blur Image\n";
+        cout << "s- Save the image to a file\n";
+        cout << "0- Exit\n";
         cin >> choice;
-        loadImage(image1);
-        if (choice == 1) {
+        if (choice != 's')
+            loadImage(image1);
+        if (choice == '1') {
             BlackWhiteImage();
-        } else if (choice == 2) {
-            invertImage();
-        } else if (choice == 3) {
-            loadImage(image2);
+        } else if (choice == '2') {
+            invertImage(image1);
+        } else if (choice == '3') {
             Merge_Filter();
-        } else if (choice == 4) {
-            char choice;
+        } else if (choice == '4') {
+            char direction;
             cout << " Flip (h)orizontally or (v)ertically ?" << endl;
-            cin >> choice;
-            if (choice == 'h')
+            cin >> direction;
+            if (direction == 'h')
                 flipImageHorizontally();
-            else if (choice == 'v')
+            else if (direction == 'v')
                 flipImageVertically();
             else {
                 cout << "Invalid input\n";
                 continue;
             }
-        } else if (choice == 5) {
-            char choice;
+        } else if (choice == '5') {
+            char c;
             cout << " Do you want to (d)arken or (l)ighten?" << endl;
-            cin >> choice;
+            cin >> c;
             if (choice == 'd')
                 darkenImage();
             else if (choice == 'l')
@@ -343,10 +433,30 @@ int main() {
                 cout << "Invalid input\n";
                 continue;
             }
-
-        } else if (choice == 6) {
+        } else if (choice == '6') {
             rotateImage();
+        } else if (choice == '7') {
+            edgeDetection();
+        } else if (choice == '8') {
+            enlargeImage();
+        } else if (choice == '9') {
+            shrinkImage();
+        } else if (choice == 'a') {
+            cout << "Mirror (l)eft, (r)ight, (u)pper, (d)own side?\n";
+            char dir;
+            cin >> dir;
+            mirrorImage(dir);
+        } else if (choice == 'b') {
+            shuffleImage();
+        } else if (choice == 'c') {
+            blurImage();
+        } else if (choice == 's') {
+            saveImage(result);
+        } else if (choice == '0') {
+            return 0;
+        } else {
+            cout << "Invalid Input, please try again" << endl;
+            continue;
         }
-        saveImage(result);
     }
 }
