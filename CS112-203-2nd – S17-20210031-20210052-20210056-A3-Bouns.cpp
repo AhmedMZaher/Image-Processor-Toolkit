@@ -127,6 +127,212 @@ void mirrorImage(char c){
     }
 }
 
+void invertimageRGB(){
+    for(int i=0; i<SIZE; i++){
+        for (int j = 0; j <SIZE ; j++) {
+            for(int n=0;n<RGB;n++){
+            result[i][j][n]=255-image1[i][j][n];
+            }
+        }
+    }
+    saveimage();
+}
+
+//----------------------------------------
+void rotateImageRGB() {
+
+    int choice;
+    cout << "Enter rotate value 90, 180 or 270: ";
+    cin >> choice;
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            for (int n = 0; n < RGB; n++) {
+                result[i][j][n] = image1[i][j][n];
+            }
+        }
+    }
+    if (choice == 270) {
+        for (int x = 1; x <= 3; x++) {
+            for (int i = 0; i < SIZE; i++) {        //Transpose the image(rows to columns)
+                for (int j = i; j < SIZE; j++) {
+                    for (int n = 0; n < RGB; n++) {
+
+
+                        int ele = result[i][j][n];
+                        result[i][j][n] = result[j][i][n];
+                        result[j][i][n] = ele;
+                    }
+                }
+            }
+            for (int i = 0; i < SIZE; i++) {      // Flip transpose  horizonatally
+                for (int j = 0; j < SIZE / 2; j++) {
+                    for (int n = 0; n < RGB; n++) {
+
+                        int ele = result[i][j][n];
+                        result[i][j][n] = result[i][SIZE - 1 - j][n];
+                        result[i][SIZE - 1 - j][n] = ele;
+                    }
+                }
+            }
+        }
+    }
+
+    else if (choice == 90) {
+            for (int i = 0; i < SIZE; i++) {        //Transpose the image(rows to columns)
+                for (int j = i; j < SIZE; j++) {
+                    for(int n=0;n<RGB;n++){
+
+
+                        int ele = result[i][j][n];
+                        result[i][j][n] = result[j][i][n];
+                        result[j][i][n] = ele;
+                    }}
+            }
+            for (int i = 0; i < SIZE; i++) {      // Flip transpose  horizonatally
+                for (int j = 0; j < SIZE / 2; j++) {
+                    for(int n=0;n<RGB;n++){
+
+                        int ele = result[i][j][n];
+                        result[i][j][n] = result[i][SIZE - 1 - j][n];
+                        result[i][SIZE - 1 - j][n] = ele;
+                    }}
+            }
+        }
+
+    else if (choice == 180) {
+        for (int x = 1; x <= 2; x++) {
+            for (int i = 0; i < SIZE; i++) {        //Transpose the image(rows to columns)
+                for (int j = i; j < SIZE; j++) {
+                    for(int n=0;n<RGB;n++){
+
+
+                        int ele = result[i][j][n];
+                        result[i][j][n] = result[j][i][n];
+                        result[j][i][n] = ele;
+                    }}
+            }
+            for (int i = 0; i < SIZE; i++) {      // Flip transpose  horizonatally
+                for (int j = 0; j < SIZE / 2; j++) {
+                    for(int n=0;n<RGB;n++){
+
+                        int ele = result[i][j][n];
+                        result[i][j][n] = result[i][SIZE - 1 - j][n];
+                        result[i][SIZE - 1 - j][n] = ele;
+                    }}
+            }
+        }
+    }
+    }
+//--------------------------------------------
+
+
+void enlargeImageRGB() {
+    int choice;
+    cout << "Enter which q that you want to enlarge:";
+    cin >> choice;
+    if (choice == 1) {
+
+        for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {
+            for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) {
+                for (int n = 0, w = 0; n < RGB; n++, w += 1) {
+
+                    result[x][y][w] = image1[i][j][n];
+                    result[x + 1][y][w] = image1[i][j][n];
+                    result[x][y + 1][w] = image1[i][j][n];
+                    result[x + 1][y + 1][w] = image1[i][j][n];
+                }
+            }
+        }
+    }
+    if (choice == 2) {
+
+        for (int i = 0, x = 0; i < SIZE/2; i++, x += 2) {
+            for (int j = SIZE/2, y = 0; j < SIZE; j++, y += 2) {
+                for (int n = 0, w = 0; n < RGB; n++, w += 1) {
+
+                    result[x][y][w] = image1[i][j][n];
+                    result[x + 1][y][w] = image1[i][j][n];
+                    result[x][y + 1][w] = image1[i][j][n];
+                    result[x + 1][y + 1][w] = image1[i][j][n];
+                }
+            }
+        }
+    }
+
+    if (choice == 3) {
+
+        for (int i = SIZE/2, x = 0; i < SIZE; i++, x += 2) {
+            for (int j = 0, y = 0; j < SIZE/2; j++, y += 2) {
+                for (int n = 0, w = 0; n < RGB; n++, w += 1) {
+
+                    result[x][y][w] = image1[i][j][n];
+                    result[x + 1][y][w] = image1[i][j][n];
+                    result[x][y + 1][w] = image1[i][j][n];
+                    result[x + 1][y + 1][w] = image1[i][j][n];
+                }
+            }
+        }
+    }
+
+    if (choice == 4) {
+
+        for (int i = SIZE/2, x = 0; i < SIZE; i++, x += 2) {
+            for (int j = SIZE/2, y = 0; j < SIZE; j++, y += 2) {
+                for (int n = 0; n < RGB; n++) {
+
+                   result[x][y][n] = image1[i][j][n];
+                    result[x + 1][y][n] = image1[i][j][n];
+                    result[x][y + 1][n] = image1[i][j][n];
+                    result[x + 1][y + 1][n] = image1[i][j][n];
+                }
+            }
+        }
+    }
+
+}
+
+void shuffleImageRGB() {
+    string shuffle;
+    cout<<"Enter the new order:";
+    getline(cin>> ws,shuffle);
+    shuffle.erase(remove(shuffle.begin(),shuffle.end(),' '), shuffle.end());
+    int i_start, i_end, j_start, j_end, new_i_start, new_i_end, new_j_start, new_j_end;
+    for(int a=0;a<4;a++){
+        if(shuffle[a]=='1'){
+            i_start= j_start= 0;
+            j_end= i_end= SIZE/2;
+        }
+        else if(shuffle[a]=='2'){
+            i_start=0; i_end=SIZE/2; j_start=SIZE/2; j_end=SIZE;
+        } else if(shuffle[a]=='3'){
+            i_start=SIZE/2; i_end=SIZE;
+            j_start=0; j_end=SIZE/2;
+        }
+        else{
+            i_start=j_start=SIZE/2; i_end=j_end=SIZE;
+        }
+        if(a==0){
+            new_i_start=new_j_start=0; new_i_end=new_j_end=SIZE/2;
+        }
+        else if(a==1){
+            new_i_start=0;new_j_start=SIZE/2;
+        }
+        else if(a==2){
+            new_i_start=SIZE/2; new_j_start=0;
+        }
+        else{
+            new_i_start=new_j_start=SIZE/2;
+        }
+        for(int i=i_start, new_i=new_i_start; i<i_end; i++,new_i++){
+            for(int j=j_start,new_j=new_j_start; j<j_end;j++,new_j++){
+                for(int n=0; n<RGB;n++) {
+                    result[new_i][new_j][n] = image1[i][j][n];
+                }
+            }
+        }
+    }
+}
+
 int main() {
     char choice = '0';
     while (choice != -1) {
