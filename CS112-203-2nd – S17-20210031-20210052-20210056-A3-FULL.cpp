@@ -249,13 +249,13 @@ void mirrorImage(char c) {
 //---------------------------------
 void enlargeImage() {
     int choice;
-    cout << "Enter which q that you want to enlarge:";
+    cout << "Enter which q that you want to enlarge:"; //user enter the q to enlarge
     cin >> choice;
     if (choice == 1) {
 
-        for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {
-            for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) {
-                result[x][y] = image1[i][j];
+        for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {    //loop in the first quarter
+            for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) { 
+                result[x][y] = image1[i][j];                //pixel in loop repeats 4 times in different places
                 result[x + 1][y] = image1[i][j];
                 result[x][y + 1] = image1[i][j];
                 result[x + 1][y + 1] = image1[i][j];
@@ -263,9 +263,9 @@ void enlargeImage() {
 
         }
     } else if (choice == 2) {
-        for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {
+        for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {  //loop in the second quarter
             for (int j = SIZE / 2, y = 0; j < SIZE; j++, y += 2) {
-                result[x][y] = image1[i][j];
+                result[x][y] = image1[i][j];           //pixel in loop repeats 4 times in different places
                 result[x + 1][y] = image1[i][j];
                 result[x][y + 1] = image1[i][j];
                 result[x + 1][y + 1] = image1[i][j];
@@ -273,9 +273,9 @@ void enlargeImage() {
 
         }
     } else if (choice == 3) {
-        for (int i = SIZE / 2, x = 0; i < SIZE; i++, x += 2) {
+        for (int i = SIZE / 2, x = 0; i < SIZE; i++, x += 2) {  //loop in the third quarter
             for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) {
-                result[x][y] = image1[i][j];
+                result[x][y] = image1[i][j];  // pixel in loop repeats 4 times in different places
                 result[x + 1][y] = image1[i][j];
                 result[x][y + 1] = image1[i][j];
                 result[x + 1][y + 1] = image1[i][j];
@@ -284,10 +284,10 @@ void enlargeImage() {
         }
 
     } else if (choice == 4) {
-        for (int i = SIZE / 2, x = 0; i < SIZE; i++, x += 2) {
-            for (int j = SIZE / 2, y = 0; j < SIZE; j++, y += 2) {
-                result[x][y] = image1[i][j];
-                result[x + 1][y] = image1[i][j];
+        for (int i = SIZE / 2, x = 0; i < SIZE; i++, x += 2) {  //loop in the fourth quarter
+            for (int j = SIZE / 2, y = 0; j < SIZE; j++, y += 2) { 
+                result[x][y] = image1[i][j];  //pixel in loop repr=eats 4 times in different places
+                result[x + 1][y] = image1[i][j];  
                 result[x][y + 1] = image1[i][j];
                 result[x + 1][y + 1] = image1[i][j];
             }
@@ -325,43 +325,43 @@ void shrinkImage() {
 //---------------------------------
 void shuffleImage() {
     string shuffle;
-    cout << "Enter the new order:";
-    getline(cin >> ws, shuffle);
-    shuffle.erase(remove(shuffle.begin(), shuffle.end(), ' '), shuffle.end());
+    cout << "Enter the new order:";  
+    getline(cin >> ws, shuffle); //user enter the new order to arrange image
+    shuffle.erase(remove(shuffle.begin(), shuffle.end(), ' '), shuffle.end());  //remove spaces between numbers
     int i_start, i_end, j_start, j_end, new_i_start, new_i_end, new_j_start, new_j_end;
-    for (int a = 0; a < 4; a++) {
-        if (shuffle[a] == '1') {
+    for (int a = 0; a < 4; a++) {  //loop 4 times
+        if (shuffle[a] == '1') {  // if shuffle =1 i start, end , j start,end = the values of the first quarter
             i_start = j_start = 0;
-            j_end = i_end = SIZE / 2;
-        } else if (shuffle[a] == '2') {
-            i_start = 0;
+            j_end = i_end = SIZE / 2; 
+        } else if (shuffle[a] == '2') { // if shuffle =2 i start, end , j start,end = the values of the second quarter
+            i_start = 0; 
             i_end = SIZE / 2;
             j_start = SIZE / 2;
             j_end = SIZE;
-        } else if (shuffle[a] == '3') {
+        } else if (shuffle[a] == '3') { // if shuffle =3 i start, end , j start,end = the values of the third quarter
             i_start = SIZE / 2;
             i_end = SIZE;
             j_start = 0;
             j_end = SIZE / 2;
-        } else {
+        } else {  // if shuffle =4 i start, end , j start,end = the values of the fourth quarter
             i_start = j_start = SIZE / 2;
             i_end = j_end = SIZE;
-        }
-        if (a == 0) {
+        } //array that image will load in.
+        if (a == 0) {  //if a=0 new i start,end , new j start,end = the  value of the first quarter  
             new_i_start = new_j_start = 0;
             new_i_end = new_j_end = SIZE / 2;
-        } else if (a == 1) {
+        } else if (a == 1) { //if a=1 new i start,end , new j start,end = the  value of the second quarter 
             new_i_start = 0;
             new_j_start = SIZE / 2;
-        } else if (a == 2) {
+        } else if (a == 2) {  //if a=2 new i start,end , new j start,end = the  value of the third quarter
             new_i_start = SIZE / 2;
             new_j_start = 0;
-        } else {
+        } else { //if a=3 new i start,end , new j start,end = the  value of the fourth quarter
             new_i_start = new_j_start = SIZE / 2;
         }
         for (int i = i_start, new_i = new_i_start; i < i_end; i++, new_i++) {
             for (int j = j_start, new_j = new_j_start; j < j_end; j++, new_j++) {
-                result[new_i][new_j] = image1[i][j];
+                result[new_i][new_j] = image1[i][j]; //load the image in result array
             }
         }
     }
