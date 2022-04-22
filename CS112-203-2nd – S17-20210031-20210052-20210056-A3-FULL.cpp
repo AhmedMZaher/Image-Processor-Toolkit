@@ -151,15 +151,19 @@ void lightenImage() {
 
 //---------------------------------
 void BlackWhiteImage() {
+    // This variable to get average of all pixels in the array
     long long avg = 0;
+    // Itreate over array to calcualte average
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             avg += image1[i][j];
         }
     }
+    // divide by size of array
     avg /= (256 * 256);
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
+          // check if current pixel greater than average of all pixels
             if (image1[i][j] > avg)
                 result[i][j] = 255;
             else
@@ -172,6 +176,8 @@ void BlackWhiteImage() {
 void flipImageHorizontally() {
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
+            // change every pixel in column from start to its corrseponding in the end
+            // for example i change pixel [0][255] --> pixel [0][0] and so on 
             result[i][SIZE - j - 1] = image1[i][j];
         }
     }
@@ -181,6 +187,8 @@ void flipImageHorizontally() {
 void flipImageVertically() {
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
+            // change every pixel in row from start to its corrseponding in the end
+            // for example i change pixel [0][255] --> pixel [0][0] and so on 
             result[SIZE - i - 1][j] = image1[i][j];
         }
     }
@@ -188,10 +196,12 @@ void flipImageVertically() {
 
 //---------------------------------
 void edgeDetection() {
+    // Two variables to carry value of sobel's array of x and y
     int Gx_sum = 0;
     int Gy_sum = 0;
     for (int i = 1; i < SIZE - 1; i++) {
         for (int j = 1; j < SIZE - 1; j++) {
+           // This loop to itreate over array of sobel's value directions
             for (int k = 0; k < 3; k++) {
                 for (int l = 0; l < 3; l++) {
                     Gx_sum += Gx[k][l] * image1[i + k - 1][j + l - 1];
@@ -199,6 +209,7 @@ void edgeDetection() {
                 }
             }
             int pixel = abs(Gx_sum) + abs(Gy_sum);
+            // becasue pixel value maybe is greater than maximum (255) or less than (0)
             pixel = pixel > 255 ? 255 : pixel;
             pixel = pixel < 0 ? 0 : pixel;
             result[i][j] = pixel;
@@ -211,6 +222,7 @@ void edgeDetection() {
 
 //---------------------------------
 void mirrorImage(char c) {
+  // Mirror image in left direction
     if (c == 'l') {
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE / 2; ++j) {
@@ -218,6 +230,7 @@ void mirrorImage(char c) {
                 result[i][SIZE / 2 + j] = image1[i][SIZE / 2 - j];
             }
         }
+        // Mirror image in right direction
     } else if (c == 'r') {
         for (int i = 0; i < SIZE; ++i) {
             int curr = SIZE;
@@ -227,6 +240,7 @@ void mirrorImage(char c) {
                 curr--;
             }
         }
+    // Mirror image in upper direction
     } else if (c == 'u') {
         for (int i = 0; i < SIZE / 2; ++i) {
             for (int j = 0; j < SIZE; ++j) {
@@ -234,6 +248,7 @@ void mirrorImage(char c) {
                 result[SIZE / 2 + i][j] = image1[SIZE / 2 - i][j];
             }
         }
+      // Mirror image in down direction
     } else if (c == 'd') {
         int curr = SIZE;
         for (int i = SIZE / 2; i < SIZE; ++i) {
