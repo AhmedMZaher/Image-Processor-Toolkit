@@ -135,7 +135,13 @@ void Merge_Filter() {
 void darkenImage() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            result[i][j] = image1[i][j] / 2; divide image1 by 2 to darken it
+            result[i][j] = image1[i][j] / 2;
+            divide
+            image1
+            by
+            2
+            to
+            darken it
         }
     }
 }
@@ -163,7 +169,7 @@ void BlackWhiteImage() {
     avg /= (256 * 256);
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-          // check if current pixel greater than average of all pixels
+            // check if current pixel greater than average of all pixels
             if (image1[i][j] > avg)
                 result[i][j] = 255;
             else
@@ -177,7 +183,7 @@ void flipImageHorizontally() {
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
             // change every pixel in column from start to its corrseponding in the end
-            // for example i change pixel [0][255] --> pixel [0][0] and so on 
+            // for example i change pixel [0][255] --> pixel [0][0] and so on
             result[i][SIZE - j - 1] = image1[i][j];
         }
     }
@@ -188,7 +194,7 @@ void flipImageVertically() {
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
             // change every pixel in row from start to its corrseponding in the end
-            // for example i change pixel [0][255] --> pixel [0][0] and so on 
+            // for example i change pixel [0][255] --> pixel [0][0] and so on
             result[SIZE - i - 1][j] = image1[i][j];
         }
     }
@@ -201,7 +207,7 @@ void edgeDetection() {
     int Gy_sum = 0;
     for (int i = 1; i < SIZE - 1; i++) {
         for (int j = 1; j < SIZE - 1; j++) {
-           // This loop to itreate over array of sobel's value directions
+            // This loop to itreate over array of sobel's value directions
             for (int k = 0; k < 3; k++) {
                 for (int l = 0; l < 3; l++) {
                     Gx_sum += Gx[k][l] * image1[i + k - 1][j + l - 1];
@@ -222,7 +228,7 @@ void edgeDetection() {
 
 //---------------------------------
 void mirrorImage(char c) {
-  // Mirror image in left direction
+    // Mirror image in left direction
     if (c == 'l') {
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE / 2; ++j) {
@@ -240,7 +246,7 @@ void mirrorImage(char c) {
                 curr--;
             }
         }
-    // Mirror image in upper direction
+        // Mirror image in upper direction
     } else if (c == 'u') {
         for (int i = 0; i < SIZE / 2; ++i) {
             for (int j = 0; j < SIZE; ++j) {
@@ -248,7 +254,7 @@ void mirrorImage(char c) {
                 result[SIZE / 2 + i][j] = image1[SIZE / 2 - i][j];
             }
         }
-      // Mirror image in down direction
+        // Mirror image in down direction
     } else if (c == 'd') {
         int curr = SIZE;
         for (int i = SIZE / 2; i < SIZE; ++i) {
@@ -269,7 +275,7 @@ void enlargeImage() {
     if (choice == 1) {
 
         for (int i = 0, x = 0; i < SIZE / 2; i++, x += 2) {    //loop in the first quarter
-            for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) { 
+            for (int j = 0, y = 0; j < SIZE / 2; j++, y += 2) {
                 result[x][y] = image1[i][j];                //pixel in loop repeats 4 times in different places
                 result[x + 1][y] = image1[i][j];
                 result[x][y + 1] = image1[i][j];
@@ -300,9 +306,9 @@ void enlargeImage() {
 
     } else if (choice == 4) {
         for (int i = SIZE / 2, x = 0; i < SIZE; i++, x += 2) {  //loop in the fourth quarter
-            for (int j = SIZE / 2, y = 0; j < SIZE; j++, y += 2) { 
+            for (int j = SIZE / 2, y = 0; j < SIZE; j++, y += 2) {
                 result[x][y] = image1[i][j];  //pixel in loop repr=eats 4 times in different places
-                result[x + 1][y] = image1[i][j];  
+                result[x + 1][y] = image1[i][j];
                 result[x][y + 1] = image1[i][j];
                 result[x + 1][y + 1] = image1[i][j];
             }
@@ -319,19 +325,23 @@ void shrinkImage() {
     if (choose1 == "1/2") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                result[i / 2][j / 2] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 2 to get the photo shrinked by 1/2
+                result[i / 2][j / 2] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) /
+                                       4;// getting the avg of matrix 2 *2 and divide every pixel by 2 to get the photo shrinked by 1/2
             }
         }
     } else if (choose1 == "1/3") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                result[i / 3][j / 3] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 3 to get the photo shrinked by 1/2
-            }3
+                result[i / 3][j / 3] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) /
+                                       4;// getting the avg of matrix 2 *2 and divide every pixel by 3 to get the photo shrinked by 1/2
+            }
+            3
         }
     } else if (choose1 == "1/4") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                result[i / 4][j / 4] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 4 to get the photo shrinked by 1/4
+                result[i / 4][j / 4] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) /
+                                       4;// getting the avg of matrix 2 *2 and divide every pixel by 4 to get the photo shrinked by 1/4
             }
         }
     }
@@ -340,16 +350,16 @@ void shrinkImage() {
 //---------------------------------
 void shuffleImage() {
     string shuffle;
-    cout << "Enter the new order:";  
+    cout << "Enter the new order:";
     getline(cin >> ws, shuffle); //user enter the new order to arrange image
     shuffle.erase(remove(shuffle.begin(), shuffle.end(), ' '), shuffle.end());  //remove spaces between numbers
     int i_start, i_end, j_start, j_end, new_i_start, new_i_end, new_j_start, new_j_end;
     for (int a = 0; a < 4; a++) {  //loop 4 times
         if (shuffle[a] == '1') {  // if shuffle =1 i start, end , j start,end = the values of the first quarter
             i_start = j_start = 0;
-            j_end = i_end = SIZE / 2; 
+            j_end = i_end = SIZE / 2;
         } else if (shuffle[a] == '2') { // if shuffle =2 i start, end , j start,end = the values of the second quarter
-            i_start = 0; 
+            i_start = 0;
             i_end = SIZE / 2;
             j_start = SIZE / 2;
             j_end = SIZE;
@@ -362,10 +372,10 @@ void shuffleImage() {
             i_start = j_start = SIZE / 2;
             i_end = j_end = SIZE;
         } //array that image will load in.
-        if (a == 0) {  //if a=0 new i start,end , new j start,end = the  value of the first quarter  
+        if (a == 0) {  //if a=0 new i start,end , new j start,end = the  value of the first quarter
             new_i_start = new_j_start = 0;
             new_i_end = new_j_end = SIZE / 2;
-        } else if (a == 1) { //if a=1 new i start,end , new j start,end = the  value of the second quarter 
+        } else if (a == 1) { //if a=1 new i start,end , new j start,end = the  value of the second quarter
             new_i_start = 0;
             new_j_start = SIZE / 2;
         } else if (a == 2) {  //if a=2 new i start,end , new j start,end = the  value of the third quarter
@@ -388,7 +398,8 @@ void blurImage() {
         for (int j = 0; j < SIZE; j++) {
             result[i][j] = (image1[i][j] + image1[i][j + 1] + image1[i][j + 2] + image1[i][j + 3] + image1[i][j + 4] +
                             image1[i + 1][j] + image1[i + 1][j + 1] + image1[i + 1][j + 2] + image1[i + 1][j + 3] +
-                            image1[i + 1][j + 4] + image1[i + 2][j] + image1[i + 2][j + 1] + image1[i + 2][j + 2] +         // getting the avg for a matrix  5 * 5  to blur the image
+                            image1[i + 1][j + 4] + image1[i + 2][j] + image1[i + 2][j + 1] + image1[i + 2][j + 2] +
+                            // getting the avg for a matrix  5 * 5  to blur the image
                             image1[i + 2][j + 3] + image1[i + 2][j + 4] + image1[i + 3][j] + image1[i + 3][j + 1] +
                             image1[i + 3][j + 2] + image1[i + 3][j + 3] + image1[i + 4][j] + image1[i + 4][j + 1] +
                             image1[i + 4][j + 2] + image1[i + 4][j + 3] + image1[i + 4][j + 4]) / 25;
