@@ -258,7 +258,7 @@ void darkenRGB() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++)
             for (int m = 0; m < RGB; m++) {
-                result[i][j][m] = image1[i][j][m] / 2;
+                result[i][j][m] = image1[i][j][m] / 2;//i used this algorithm to divide the pixels by 2 to darken it
             }
 
     }
@@ -269,7 +269,7 @@ void lightenRGB() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++)
             for (int m = 0; m < RGB; m++) {
-                result[i][j][m] = min(image1[i][j][m] + 50, 255);
+                result[i][j][m] = min(image1[i][j][m] + 50, 255);//Add 50 pixels to  white pixels in image
             }
 
     }
@@ -280,7 +280,7 @@ void mergeRGB() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++)
             for (int m = 0; m < RGB; m++) {
-                result[i][j][m] = (image1[i][j][m] + image2[i][j][m]) / 2;
+                result[i][j][m] = (image1[i][j][m] + image2[i][j][m]) / 2;//add image1 with image2 and divide them by 2 
             }
     }
 }
@@ -295,7 +295,7 @@ void shrink_RGB() {
             for (int j = 0; j < SIZE; j++)
                 for (int m = 0; m < RGB; m++) {
                     result[i / 2][j / 2][m] =
-                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) / 4;
+                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) / 4; // getting the avg of matrix 2 *2 and divide every pixel by 2 to get the photo shrinked by 1/2
                 }
         }
     } else if (choose1 == "1/3") {
@@ -303,7 +303,7 @@ void shrink_RGB() {
             for (int j = 0; j < SIZE; j++)
                 for (int m = 0; m < RGB; m++) {
                     result[i / 3][j / 3][m] =
-                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) / 4;
+                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 3 to get the photo shrinked by 1/3
                 }
         }
     } else if (choose1 == "1/4") {
@@ -311,7 +311,7 @@ void shrink_RGB() {
             for (int j = 0; j < SIZE; j++)
                 for (int m = 0; m < RGB; m++) {
                     result[i / 4][j / 4][m] =
-                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) / 4;
+                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 4 to get the photo shrinked by 1/4
                 }
         }
     }
@@ -327,7 +327,7 @@ void blur_RGB() {
                          image1[i][j + 4][k] + image1[i + 1][j][k] + image1[i + 1][j + 1][k] +
                          image1[i + 1][j + 2][k] + image1[i + 1][j + 3][k] + image1[i + 1][j + 4][k] +
                          image1[i + 2][j][k] + image1[i + 2][j + 1][k] + image1[i + 2][j + 2][k] +
-                         image1[i + 2][j + 3][k] + image1[i + 2][j + 4][k] + image1[i + 3][j][k] +
+                         image1[i + 2][j + 3][k] + image1[i + 2][j + 4][k] + image1[i + 3][j][k] +                     // getting the avg for a matrix  5 * 5  to blur the image
                          image1[i + 3][j + 1][k] + image1[i + 3][j + 2][k] + image1[i + 3][j + 3][k] +
                          image1[i + 4][j][k] + image1[i + 4][j + 1][k] + image1[i + 4][j + 2][k] +
                          image1[i + 4][j + 3][k] + image1[i + 4][j + 4][k]) / 25;
