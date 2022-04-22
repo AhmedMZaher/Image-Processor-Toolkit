@@ -52,7 +52,7 @@ void BlackWhiteImageRGB() {
     // This variable to get average of all pixels in the array
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-          // This equation to convert from colours to GrayScale
+            // This equation to convert from colours to GrayScale
             int avg = image1[i][j][0] * 0.299 + image1[i][j][1] * 0.587 + image1[i][j][2] * 0.114;
             if (avg > 127)
                 result[i][j][0] = result[i][j][1] = result[i][j][2] = 255;
@@ -80,7 +80,7 @@ void flipImageHorizontallyRGB() {
 void flipImageVerticallyRGB() {
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-             // change every pixel in row from start to its corrseponding in the end
+            // change every pixel in row from start to its corrseponding in the end
             // for example i change pixel [0][255] --> pixel [0][0] and so on 
             for (int k = 0; k < 3; ++k) {
                 result[SIZE - i - 1][j][k] = image1[i][j][k];
@@ -138,8 +138,8 @@ void mirrorImageRGB(char c) {
 //---------------------------------
 void edgeDetectionRGB() {
     // Six variables to carry value of sobel's array of x and y
-   // 2 for each direction (x and y)
-   // 3 for each color
+    // 2 for each direction (x and y)
+    // 3 for each color
     int Gx_sum_R = 0, Gy_sum_R = 0;
     int Gx_sum_G = 0, Gy_sum_G = 0;
     int Gx_sum_B = 0, Gy_sum_B = 0;
@@ -147,7 +147,7 @@ void edgeDetectionRGB() {
         for (int j = 1; j < SIZE - 1; j++) {
             for (int k = 0; k < 3; k++) {
                 for (int l = 0; l < 3; l++) {
-                  // Itreate over directions array to calculte every variable of those 6 ones
+                    // Itreate over directions array to calculte every variable of those 6 ones
                     Gx_sum_R += Gx[k][l] * image1[i + k - 1][j + l - 1][0];
                     Gy_sum_R += Gy[k][l] * image1[i + k - 1][j + l - 1][0];
                     Gx_sum_G += Gx[k][l] * image1[i + k - 1][j + l - 1][1];
@@ -156,7 +156,7 @@ void edgeDetectionRGB() {
                     Gy_sum_B += Gy[k][l] * image1[i + k - 1][j + l - 1][2];
                 }
             }
-          // Get average of all of those 6 variable
+            // Get average of all of those 6 variable
             result[i][j][0] = sqrt(Gy_sum_R * Gx_sum_R + Gy_sum_R * Gx_sum_R) / (4 * sqrt(2));
             result[i][j][1] = sqrt(Gx_sum_G * Gx_sum_G + Gy_sum_G * Gx_sum_G) / (4 * sqrt(2));
             result[i][j][2] = sqrt(Gx_sum_B * Gx_sum_B + Gy_sum_B * Gx_sum_B) / (4 * sqrt(2));
@@ -306,7 +306,8 @@ void shrink_RGB() {
             for (int j = 0; j < SIZE; j++)
                 for (int m = 0; m < RGB; m++) {
                     result[i / 2][j / 2][m] =
-                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) / 4; // getting the avg of matrix 2 *2 and divide every pixel by 2 to get the photo shrinked by 1/2
+                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) /
+                            4; // getting the avg of matrix 2 *2 and divide every pixel by 2 to get the photo shrinked by 1/2
                 }
         }
     } else if (choose1 == "1/3") {
@@ -314,7 +315,8 @@ void shrink_RGB() {
             for (int j = 0; j < SIZE; j++)
                 for (int m = 0; m < RGB; m++) {
                     result[i / 3][j / 3][m] =
-                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 3 to get the photo shrinked by 1/3
+                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) /
+                            4;// getting the avg of matrix 2 *2 and divide every pixel by 3 to get the photo shrinked by 1/3
                 }
         }
     } else if (choose1 == "1/4") {
@@ -322,7 +324,8 @@ void shrink_RGB() {
             for (int j = 0; j < SIZE; j++)
                 for (int m = 0; m < RGB; m++) {
                     result[i / 4][j / 4][m] =
-                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 4 to get the photo shrinked by 1/4
+                            (image1[i][j][m] + image1[i + 1][j][m] + image1[i][j + 1][m] + image1[i + 1][j + 1][m]) /
+                            4;// getting the avg of matrix 2 *2 and divide every pixel by 4 to get the photo shrinked by 1/4
                 }
         }
     }
@@ -338,7 +341,8 @@ void blur_RGB() {
                          image1[i][j + 4][k] + image1[i + 1][j][k] + image1[i + 1][j + 1][k] +
                          image1[i + 1][j + 2][k] + image1[i + 1][j + 3][k] + image1[i + 1][j + 4][k] +
                          image1[i + 2][j][k] + image1[i + 2][j + 1][k] + image1[i + 2][j + 2][k] +
-                         image1[i + 2][j + 3][k] + image1[i + 2][j + 4][k] + image1[i + 3][j][k] +                     // getting the avg for a matrix  5 * 5  to blur the image
+                         image1[i + 2][j + 3][k] + image1[i + 2][j + 4][k] + image1[i + 3][j][k] +
+                         // getting the avg for a matrix  5 * 5  to blur the image
                          image1[i + 3][j + 1][k] + image1[i + 3][j + 2][k] + image1[i + 3][j + 3][k] +
                          image1[i + 4][j][k] + image1[i + 4][j + 1][k] + image1[i + 4][j + 2][k] +
                          image1[i + 4][j + 3][k] + image1[i + 4][j + 4][k]) / 25;
