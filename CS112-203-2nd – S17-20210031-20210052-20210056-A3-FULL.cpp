@@ -126,7 +126,7 @@ void Merge_Filter() {
 
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            result[i][j] = (image1[i][j] + image2[i][j]) / 2;
+            result[i][j] = (image1[i][j] + image2[i][j]) / 2; //add two images and divided them by 2
         }
     }
 }
@@ -135,7 +135,7 @@ void Merge_Filter() {
 void darkenImage() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            result[i][j] = image1[i][j] / 2;
+            result[i][j] = image1[i][j] / 2; divide image1 by 2 to darken it
         }
     }
 }
@@ -144,7 +144,7 @@ void darkenImage() {
 void lightenImage() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            result[i][j] = min(image1[i][j] + 50, 255);
+            result[i][j] = min(image1[i][j] + 50, 255);//Add 50 pixels to  white pixels in image1
         }
     }
 }
@@ -304,19 +304,19 @@ void shrinkImage() {
     if (choose1 == "1/2") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                result[i / 2][j / 2] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
+                result[i / 2][j / 2] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 2 to get the photo shrinked by 1/2
             }
         }
     } else if (choose1 == "1/3") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                result[i / 3][j / 3] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
-            }
+                result[i / 3][j / 3] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 3 to get the photo shrinked by 1/2
+            }3
         }
     } else if (choose1 == "1/4") {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
-                result[i / 4][j / 4] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;
+                result[i / 4][j / 4] = (image1[i][j] + image1[i + 1][j] + image1[i][j + 1] + image1[i + 1][j + 1]) / 4;// getting the avg of matrix 2 *2 and divide every pixel by 4 to get the photo shrinked by 1/4
             }
         }
     }
@@ -373,7 +373,7 @@ void blurImage() {
         for (int j = 0; j < SIZE; j++) {
             result[i][j] = (image1[i][j] + image1[i][j + 1] + image1[i][j + 2] + image1[i][j + 3] + image1[i][j + 4] +
                             image1[i + 1][j] + image1[i + 1][j + 1] + image1[i + 1][j + 2] + image1[i + 1][j + 3] +
-                            image1[i + 1][j + 4] + image1[i + 2][j] + image1[i + 2][j + 1] + image1[i + 2][j + 2] +
+                            image1[i + 1][j + 4] + image1[i + 2][j] + image1[i + 2][j + 1] + image1[i + 2][j + 2] +         // getting the avg for a matrix  5 * 5  to blur the image
                             image1[i + 2][j + 3] + image1[i + 2][j + 4] + image1[i + 3][j] + image1[i + 3][j + 1] +
                             image1[i + 3][j + 2] + image1[i + 3][j + 3] + image1[i + 4][j] + image1[i + 4][j + 1] +
                             image1[i + 4][j + 2] + image1[i + 4][j + 3] + image1[i + 4][j + 4]) / 25;
