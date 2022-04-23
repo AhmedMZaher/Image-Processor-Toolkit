@@ -5,7 +5,7 @@
 // Author2 and ID and Group: 20210052
 // Author3 and ID and Group: 20210056
 // Teaching Assistant: Eng/ Hagar
-// Purpose: For 6 filters in photoshop project
+// Purpose: For 12 filters in photoshop project
 #include <iostream>
 #include <cstring>
 #include <cmath>
